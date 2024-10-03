@@ -1,0 +1,24 @@
+package com.phonix.com;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Player player = new Player(1, "Mahendra Dhoni", 7, "Wicket-Keeper Batsman");
+		Configuration cfg = new Configuration();
+		cfg.configure("config.xml");
+		SessionFactory factory = cfg.buildSessionFactory();
+		Session conn = factory.openSession();
+		
+		Transaction tr = conn.beginTransaction();
+		conn.save(player);
+		tr.commit();
+		
+	}
+
+}

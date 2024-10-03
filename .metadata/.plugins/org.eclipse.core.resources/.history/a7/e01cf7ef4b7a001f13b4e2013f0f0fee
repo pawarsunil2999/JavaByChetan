@@ -1,0 +1,24 @@
+package com.pho.com;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class Main {
+    public static void main(String[] args) {
+        Player player = new Player(1, "Mahendra Dhoni", 7, "Wicket-Keeper Batsman");
+
+        // Build SessionFactory and Session
+        try (SessionFactory factory = new Configuration().configure("config.xml").buildSessionFactory();
+             Session session = factory.openSession()) {
+
+            Transaction transaction = session.beginTransaction();
+            session.persist(player);
+            transaction.commit();
+            System.out.println("Player saved: " + player);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
